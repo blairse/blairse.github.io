@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="src/style.css" rel="stylesheet" type="text/css">
-	<script src="js/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
     <script type="text/javascript" src="js/jquery.horizonScroll.js"></script>
 	<script src="js/parallax.min.js"></script>
@@ -71,7 +71,9 @@ $.ajax({
   dataType: 'json',
   success: function (data) {
 		$("#userName").text(data.set.user.name + "'s");
- 
+ 		$("#content1").children('img').attr('src', data.set.records[0].large_thumbnail_url);
+ 		$("#content2").children('img').attr('src', data.set.records[1].large_thumbnail_url);
+ 		$("#content3").children('img').attr('src', data.set.records[2].large_thumbnail_url);
 		}
 });
 
