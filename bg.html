@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="src/style.css" rel="stylesheet" type="text/css">
+	<script src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery.horizonScroll.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Merienda&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="scene" data-calibrate-x="true" data-calibrate-y="true">
+	<div data-depth="0.19">
+		<div id="bg"></div>
+	</div>	
+
+	<div data-depth="0.24" id="title"><h1 id="userName">Sebastian's</h1></div>
+	<div data-depth="0.21" id="title"><h2>Library of Wonder</h2></div>
+	<div data-depth="0.22" id="poweredBy">
+		<span>Powered by</span>
+		<a href="https://digitalnz.org/"><img src="src/DigitalNZLogo-1.jpg" height="40px"></img></a>
+	</div>
+	<div id="content1" data-depth="0.21">
+		<img src="mini_magick20200330-1-1h59x9f.jpg"></img>
+	</div>	
+	<div id="content2" data-depth="0.21">
+		<img src="mini_magick20200330-1-157gkl0.jpg"></img>
+	</div>	
+	<div id="content3" data-depth="0.21">
+		<img src="mini_magick20200330-1-juvey9.jpg"></img>
+	</div>
+	<div data-depth="0.35">
+		<img src="src/img/lx_001.png"></img>
+	</div>
+	<div data-depth="0.3">
+		<img src="src/img/layer_001.png"></img>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+const parsedUrl = new URL(window.location.href);
+var get = parsedUrl.searchParams.get("id"); // "123"
+
+
+
+		// Build a request based on the entered search terms, slug and API key
+		// var url =  self.APrecords_idomain + '/records.json?';
+//    var url =  'https://cors-anywhere.herokuapp.com/https://api.digitalnz.org/sets/5e812fed61f3a8000ac1e7de.json?&api_key=1wsN-sszngsMqDXy7hwz';
+		var url = 'https://cors-anywhere.herokuapp.com/https://api.digitalnz.org/sets/'
+		url += get;
+		url += '.json?'
+		url += '&api_key=' + '1wsN-sszngsMqDXy7hwz';
+//		url += '&per_page=' + '100';
+//		url += '&jsonp=DNZSearch.processResults';
+
+
+$.ajax({
+  type: 'GET',
+  url: url,
+  async: false,
+  beforeSend: function (xhr) {
+    if (xhr && xhr.overrrecords_ideMimeType) {
+      xhr.overrrecords_ideMimeType('application/json;charset=utf-8');
+    }
+  },
+  dataType: 'json',
+  success: function (data) {
+		$("#userName").text(data.set.user.name + "'s");
+ 
+		}
+});
+
+//	parallax
+var scene = document.getElementById('scene');
+var parallaxInstance = new Parallax(scene);	
+	
+</script>
+
+</body>
+</html>
+
+
+

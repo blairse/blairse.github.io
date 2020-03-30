@@ -1,0 +1,23 @@
+<html>
+<head>
+	<script src="js/jquery-3.4.1.js"></script>
+</head>
+<body>
+
+<div id="gallery">
+    <p id="paragraphElement"></p> 
+</div>
+
+<script> 
+function logResults(json){
+  console.log(json);
+}
+
+$.ajax({
+  url: "https://api.digitalnz.org/v3/records.json?api_key=1wsN-sszngsMqDXy7hwz&text=cat+dog&jsonp=logResults",
+  dataType: "jsonp",
+  jsonpCallback: "logResults"
+});
+</script>
+
+</html>
