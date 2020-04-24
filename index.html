@@ -1,23 +1,162 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<script src="js/jquery-3.4.1.js"></script>
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="src/style.css" rel="stylesheet" type="text/css">
+    <link href="src/demo.css" rel="stylesheet" type="text/css">
+	<link href="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Merienda&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/jquery.horizonScroll.js"></script></head>
 <body>
 
-<div id="gallery">
-    <p id="paragraphElement"></p> 
+<div id="loader-wrapper">
+    <div id="loader"></div>
+	
+	    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+	
 </div>
 
-<script> 
-function logResults(json){
-  console.log(json);
-}
+<div id="header" style="color: white">
+<h3>Mīharo | Wonder</h3>
+Celebrating 100 Years of the Turnbull Library
+</div>
+
+<section data-role="section" id="section-section1">
+		<div class="bg">
+			<!-- <img src="src/img/bg_001.jpg"></img> -->
+		</div>
+		<div id="title">
+			<h1 id="userName"></h1>
+			<h2>Library of Wonder</h2>
+			<div data-depth="0.22" id="poweredBy">
+				<span>Powered by</span>
+				<a href="https://digitalnz.org/"  data-pointer-events="all"><img src="src/DigitalNZLogo-1.jpg" height="40px"></img></a>
+			</div>
+		</div>
+
+</section>
+<section data-role="section" id="section-section2">
+	<div id="intro">
+	<div id="galleryTitle">
+	</div>
+		<div id="mosaic">
+			<div class="grid grid--layout-1 grid--current">
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+				<div class="grid__item"></div>
+		</div>
+	</div>
+</section>
+<section>
+	<div id="gallery">
+	
+	</div>
+</section>
+
+<div id="elements">
+		<div class="layer1">
+			<img src="src/img/lx_001.png" style="mix-blend-mode: multiply;"></img>
+		</div>
+		<div class="layer1">
+			<img src="src/img/layer_001.png"></img>
+		</div>
+
+	</div>
+
+<div id="footer">
+<img src="src/nl_logo.png" style="float: left; height: 60%;"/>
+<img src="src/nzg.png" style="float: right; height: 30%; margin-top: 6vh;"/>
+</div>
+<script src="js/demo.js"></script>
+<script type="text/javascript">
+const parsedUrl = new URL(window.location.href);
+var get = parsedUrl.searchParams.get("id"); // "123"
+
+		var url = 'https://cors-anywhere.herokuapp.com/https://api.digitalnz.org/sets/'
+		url += get;
+		url += '.json?';
+		url += '&api_key=' + '1wsN-sszngsMqDXy7hwz';
+		url += '&and[category][]=Images';
+
+
 
 $.ajax({
-  url: "https://api.digitalnz.org/v3/records.json?api_key=1wsN-sszngsMqDXy7hwz&text=cat+dog&jsonp=logResults",
-  dataType: "jsonp",
-  jsonpCallback: "logResults"
+  type: 'GET',
+  url: url,
+  async: false,
+  beforeSend: function (xhr) {
+    if (xhr && xhr.overrrecords_ideMimeType) {
+      xhr.overrrecords_ideMimeType('application/json;charset=utf-8');
+    }
+  },
+  dataType: 'json',
+  success: function (data) {
+	    var classes = ['grid-item','grid-item','grid-item', 'grid-item grid-item--width2', 'grid-item grid-item--width3'];
+
+		$("#userName").text(data.set.user.name + "'s");
+		$("#galleryTitle").text(data.set.name);
+			
+		for (i in data.set.records) {
+			randClass = classes[~~(Math.random()*classes.length)];
+			var randHeight = Math.floor(Math.random() * 100) + 100;
+
+		
+			$(".grid__item:nth-child(" + i + ")").css('background-image', 'url(' + data.set.records[i].thumbnail_url + ')');
+			$("#gallery").append('<section data-role="section" id="section-section4" class="galleryItem"><a href=' + data.set.records[i].large_thumbnail_url + ' data-featherlight="image"><img class="frame" src=' + data.set.records[i].large_thumbnail_url + ' /></a><h3>' + data.set.records[i].title + '</section>');
+
+		}		
+
+	}
 });
+
+//	masonry
+
+var loaded = $('body').imagesLoaded( function() {
+	$('body').toggleClass('loaded');
+});
+
+var $grid = $('#mosaic').imagesLoaded( function() {
+  // init Masonry after all images have loaded
+$('#mosaic').masonry({
+  itemSelector: '.grid-item',
+  columnWidth: 150,
+  originTop: false
+});
+});
+
+//horizonScroll    
+$('section').horizon();
+    $(document).on('click', '.go-to-2', function () {
+        $(document).horizon('scrollTo', 'section-section2');
+    });
+	
+
+//	parallax
+ var page1 = document.getElementById('page');
+ var parallaxInstance = new Parallax(page);	
+
 </script>
 
+</body>
 </html>
+
+
+

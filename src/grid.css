@@ -1,0 +1,84 @@
+.galleryItem {
+	display: inline-block;
+  align-self: center;
+	margin-left: 20vw;
+}
+
+.galleryItem img {
+	max-width: 20vw;
+	max-height: 50vh;
+}
+
+#gallery {
+    overflow: visible;
+    white-space:nowrap;
+	height: 100vh;
+	display: flex;
+}
+
+.frame {
+  background-color:#ddc;
+  border:solid 2vmin #eee;
+  border-bottom-color:#fff;
+  border-left-color:#eee;
+  border-radius:2px;
+  border-right-color:#eee;
+  border-top-color:#ddd;
+  box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
+  box-sizing:border-box;
+  display:inline-block;
+  /* margin:10vh 10vw; */
+  padding:4vmin;
+  position:relative;
+  text-align:center;
+}
+  .frame:before {
+    border-radius:2px;
+    bottom:-2vmin;
+    box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
+    content:"";
+    left:-2vmin;
+    position:absolute;
+    right:-2vmin;
+    top:-2vmin;
+  }
+  
+  .frame:after {
+    border-radius:2px;
+    bottom:-2.5vmin;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+    content:"";
+    left:-2.5vmin;
+    position:absolute;
+    right:-2.5vmin;
+    top:-2.5vmin;
+  }
+
+#mosaic {
+	width: 40vw;
+	left: 42vw;
+}
+
+/* clearfix */
+#mosaic:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+	max-width: 95%;
+}
+
+.grid-item--width2 { width: 300px; }
+.grid-item--width3 { width: 450px; }
+
+.grid-item--height2 { height: 300px; }
+.grid-item--height3 { height: 450px; }
+
